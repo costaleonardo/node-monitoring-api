@@ -4,8 +4,8 @@
 */
 
 // Dependencies
-const http = require('http');
-const url  = require('url');
+const http          = require('http');
+const url           = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 
 // The server should respond to all requests with a string
@@ -61,12 +61,12 @@ const server = http.createServer((req, res) => {
       const payloadString = JSON.stringify(payload);
 
       // Send the response
+      res.setHeader('Content-Type', 'application/json');
       res.writeHead(statusCode);
       res.end(payloadString);
 
-
-    // Log the request path
-    console.log('Returning this response: ', statusCode, payload); 
+      // Log the request path
+      console.log('Returning this response: ', statusCode, payload); 
     });
   });
 });
@@ -83,7 +83,6 @@ let handlers = {};
 handlers.sample = (data, callback) => {
   // Callback a http status code, and a payload object
   callback(406, { 'name': 'sample handler' });
-
 };
 
 // Not found handler
